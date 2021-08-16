@@ -164,6 +164,7 @@ function reveal {
 
 # Generate my static website
 function generate {
+    cd ~/code/website
     rm -f dst/.files
     ssg6 src dst \
 	 "Ibrahim Muftee\'s Website" \
