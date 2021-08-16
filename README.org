@@ -1,28 +1,20 @@
-#+TITLE: Dotfiles
+#+TITLE: Ibrahim's Dotfiles
 #+AUTHOR: Ibrahim Muftee
 
 * Table of Contents :toc:
-- [[#programs-used-in-dotfiles][Programs used in Dotfiles]]
-- [[#configs-in-other-repositores][Configs in other repositores]]
+- [[#ibrahims-dotfiles][Ibrahim's Dotfiles]]
+  - [[#usage][Usage]]
 
-* Programs used in Dotfiles
-These are the configs that are used in my dotfiles:
-- GNU Emacs
-- Doom Emacs
-- Gnupg
-- Mpd
-- Mpv
-- Ncmpcpp
-- Nvim
-- X11
-- Zsh
+* Ibrahim's Dotfiles
 
-* Configs in other repositores
+Uses GNU Stow - https://www.gnu.org/software/stow/
 
-*NOTE:* This isn't setup yet.
+** Usage
 
-- Dmenu
-- Dwm
-- Dwmblocks
-- Shell Scripts
-- St
+#+begin_src shell
+
+  cd ~
+  git clone https://github.com/ibrahimmuftee/dotfiles.git ~/.dotfiles/
+  cd .dotfiles
+
+#+end_src
