@@ -11,4 +11,4 @@ Uses GNU Stow - https://www.gnu.org/software/stow/
   cd .dotfiles 
 #+end_src
 
-Then, you type `stow ` and whichever folder you want.
+Then, you type =stow= and whichever folder you want.
