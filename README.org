@@ -1,0 +1,28 @@
+#+TITLE: Dotfiles
+#+AUTHOR: Ibrahim Muftee
+
+* Table of Contents :toc:
+- [[#programs-used-in-dotfiles][Programs used in Dotfiles]]
+- [[#configs-in-other-repositores][Configs in other repositores]]
+
+* Programs used in Dotfiles
+These are the configs that are used in my dotfiles:
+- GNU Emacs
+- Doom Emacs
+- Gnupg
+- Mpd
+- Mpv
+- Ncmpcpp
+- Nvim
+- X11
+- Zsh
+
+* Configs in other repositores
+
+*NOTE:* This isn't setup yet.
+
+- Dmenu
+- Dwm
+- Dwmblocks
+- Shell Scripts
+- St
