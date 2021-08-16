@@ -162,6 +162,14 @@ function reveal {
     && echo "${1} -> ${output}"
 }
 
+# Generate my static website
+function generate {
+    rm -f dst/.files
+    ssg6 src dst \
+	 "Ibrahim Muftee\'s Website" \
+	 "http://ibrahimmuftee.net"
+}
+
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
