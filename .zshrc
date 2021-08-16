@@ -85,6 +85,9 @@ alias l.='exa -a | egrep "^\."'
 
 ### MAIN ###
 
+# Set autocd
+setopt auto_cd
+
 # History in cache directory
 HISTSIZE=10000000
 SAVEHIST=10000000
