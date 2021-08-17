@@ -162,13 +162,20 @@ function reveal {
     && echo "${1} -> ${output}"
 }
 
-# Generate my static website
+# Generate and deploy my static website
 function generate {
     cd ~/code/website
     rm -f dst/.files
     ssg6 src dst \
 	 "Ibrahim Muftee\'s Website" \
 	 "http://ibrahimmuftee.net"
+}
+
+function deploy {
+    rsync \
+	-rtvzP --delete-after \
+	~/code/website/dst/ \
+	root@ibrahimmuftee.net:/var/www/ibrahimmuftee
 }
 
 # Edit line in vim with ctrl-e:
