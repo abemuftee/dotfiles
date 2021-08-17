@@ -12,3 +12,5 @@ Uses GNU Stow - https://www.gnu.org/software/stow/
 #+end_src
 
 Then, you type =stow= and whichever folder you want.
+
+*NOTE:* Before using GNU Stow, make the directories of the config files you want (ex: =mkdir ~/.config/nvim= for neovim) or else all the other files that are not config files will end up in the stow directory.
