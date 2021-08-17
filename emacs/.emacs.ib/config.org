@@ -424,7 +424,6 @@
     (setq org-directory "~/dox/org/")
     (setq org-agenda-files
           '("~/dox/org/Tasks.org"
-            "~/dox/org/Birthdays.org"
             "~/dox/org/Habits.org"))
 
     (require 'org-habit)
