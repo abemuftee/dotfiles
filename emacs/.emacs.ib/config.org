@@ -81,7 +81,7 @@
 
   ;; Disable line numbers for some modes
   (dolist (mode '(org-mode-hook
-		   mu4e-main-mode-hook
+                  mu4e-main-mode-hook
                   term-mode-hook
                   vterm-mode-hook
                   shell-mode-hook
