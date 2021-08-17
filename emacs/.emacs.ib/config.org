@@ -2,6 +2,12 @@
 #+AUTHOR: Ibrahim Muftee
 #+PROPERTY: header-args:emacs-lisp :tangle ~/.emacs.ib/config.el :mkdirp yes
 
+* System Wide Variables
+
+#+begin_src emacs-lisp
+  ;; Font Sizes
+  (defvar ib/default-font-size 120)
+  (defvar ib/default-variable-font-size 120)
 * Package System Setup
 
 #+begin_src emacs-lisp
@@ -79,13 +85,13 @@
 
 (defun ib/set-font-faces ()
   (message "Setting faces!")
-  (set-face-attribute 'default nil :font "Iosevka" :height 120 :weight 'regular)
+  (set-face-attribute 'default nil :font "Iosevka" :height ib/default-font-size :weight 'regular)
 
   ;; Set the fixed pitch face
-  (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height 120 :weight 'regular)
+  (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height ib/default-font-size :weight 'regular)
 
   ;; Set the variable pitch face
-  (set-face-attribute 'variable-pitch nil :font "Roboto" :height 120 :weight 'regular))
+  (set-face-attribute 'variable-pitch nil :font "Roboto" :height ib/default-variable-font-size :weight 'regular))
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions
