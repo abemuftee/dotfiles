@@ -8,6 +8,11 @@
   ;; Font Sizes
   (defvar ib/default-font-size 120)
   (defvar ib/default-variable-font-size 120)
+
+  ;; Make frame transparency overridable
+  (defvar ib/frame-transparency '(90 . 90))
+#+end_src
+
 * Package System Setup
 
 #+begin_src emacs-lisp
@@ -67,6 +72,12 @@
 
   (column-number-mode)
   (global-display-line-numbers-mode t)
+
+  ;; Set frame transparency
+  (set-frame-parameter (selected-frame) 'alpha ib/frame-transparency)
+  (add-to-list 'default-frame-alist `(alpha . ,ib/frame-transparency))
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
   ;; Disable line numbers for some modes
   (dolist (mode '(org-mode-hook
