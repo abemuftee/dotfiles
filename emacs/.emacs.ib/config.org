@@ -641,6 +641,8 @@
           `(("t" "Tasks / Projects")
             ("tt" "Task" entry (file+olp "~/dox/org/Tasks.org" "Inbox")
              "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+            ("ta" "Assignment" entry (file+olp "~/dox/org/Tasks.org" "Inbox")
+             "* TODO %?\nDEADLINE: %^t\n" :empty-lines 1)
 
             ("j" "Journal Entries")
             ("jj" "Journal" entry
