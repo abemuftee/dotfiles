@@ -293,6 +293,129 @@
 
 #+end_src
 
+* Credential Management
+
+#+begin_src emacs-lisp
+
+  (use-package password-store
+    :config
+    (setq password-store-password-length 12))
+
+  (use-package auth-source-pass
+    :config
+    (auth-source-pass-enable))
+
+  (ib/leader-keys
+    "ap" '(:ignore t :which-key "pass")
+    "app" 'password-store-copy
+    "api" 'password-store-insert
+    "apg" 'password-store-generate)
+
+#+end_src
+
+* Development
+
+** Languages
+
+#+begin_src emacs-lisp
+
+  (use-package lsp-java
+    :config
+    (add-hook 'java-mode-hook #'lsp))
+
+  (add-hook 'c-mode-hook #'lsp)
+
+#+end_src
+
+** Exporting Languages
+
+*** Markdown
+
+#+begin_src emacs-lisp
+(add-to-list 'org-export-backends 'md)
+#+end_src
+
+** Language Servers
+
+#+begin_src emacs-lisp
+
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+    :config
+    (lsp-enable-which-key-integration t))
+
+#+end_src
+
+** Projectile
+
+#+begin_src emacs-lisp
+
+  (use-package projectile
+    :diminish projectile-mode
+    :config (projectile-mode)
+    :custom ((projectile-completion-system 'ivy))
+    :bind-keymap
+    ("C-c p" . projectile-command-map)
+    :init
+    ;; NOTE: Set this to the folder where you keep your Git repos!
+    (when (file-directory-p "~/code")
+      (setq projectile-project-search-path '("~/code")))
+    (setq projectile-switch-project-action #'projectile-dired))
+
+  (use-package counsel-projectile
+    :after projectile
+    :config (counsel-projectile-mode))
+
+#+end_src
+
+** Magit
+
+#+begin_src emacs-lisp
+
+  (use-package magit
+    :custom
+    (magit-display-buffer-fuction #'magit-display-buffer-same-window-except-diff-v1))
+
+#+end_src
+
+** Commenting
+
+#+begin_src emacs-lisp
+
+(use-package evil-commentary
+  :config (evil-commentary-mode))
+
+#+end_src
+
+** Rainbow Delimiters
+
+#+begin_src emacs-lisp
+
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+#+end_src
+
+* File Manager
+** Dired
+
+#+begin_src emacs-lisp
+
+  (use-package dired
+    :ensure nil
+    :commands (dired dired-jump)
+    :bind (("C-x C-j" . dired-jump))
+    :custom ((dired-listing-switches "-agho --group-directories-first"))
+    :config
+    (evil-collection-define-key 'normal 'dired-mode-map
+      "h" 'dired-up-directory
+      "l" 'dired-find-file)
+    (setq vc-follow-symlinks t))
+
+#+end_src
+
 * Mu4e
 
 #+begin_src emacs-lisp
@@ -736,109 +859,6 @@
     (org-roam-setup))
 
   #+end_src
-
-* Development
-
-** Languages
-
-#+begin_src emacs-lisp
-
-  (use-package lsp-java
-    :config
-    (add-hook 'java-mode-hook #'lsp))
-
-  (add-hook 'c-mode-hook #'lsp)
-
-#+end_src
-
-** Exporting Languages
-
-*** Markdown
-
-#+begin_src emacs-lisp
-(add-to-list 'org-export-backends 'md)
-#+end_src
-
-** Language Servers
-
-#+begin_src emacs-lisp
-
-  (use-package lsp-mode
-    :commands (lsp lsp-deferred)
-    :init
-    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-    :config
-    (lsp-enable-which-key-integration t))
-
-#+end_src
-
-** Projectile
-
-#+begin_src emacs-lisp
-
-  (use-package projectile
-    :diminish projectile-mode
-    :config (projectile-mode)
-    :custom ((projectile-completion-system 'ivy))
-    :bind-keymap
-    ("C-c p" . projectile-command-map)
-    :init
-    ;; NOTE: Set this to the folder where you keep your Git repos!
-    (when (file-directory-p "~/code")
-      (setq projectile-project-search-path '("~/code")))
-    (setq projectile-switch-project-action #'projectile-dired))
-
-  (use-package counsel-projectile
-    :after projectile
-    :config (counsel-projectile-mode))
-
-#+end_src
-
-** Magit
-
-#+begin_src emacs-lisp
-
-  (use-package magit
-    :custom
-    (magit-display-buffer-fuction #'magit-display-buffer-same-window-except-diff-v1))
-
-#+end_src
-
-** Commenting
-
-#+begin_src emacs-lisp
-
-(use-package evil-commentary
-  :config (evil-commentary-mode))
-
-#+end_src
-
-** Rainbow Delimiters
-
-#+begin_src emacs-lisp
-
-  (use-package rainbow-delimiters
-    :hook (prog-mode . rainbow-delimiters-mode))
-
-#+end_src
-
-* File Manager
-** Dired
-
-#+begin_src emacs-lisp
-
-  (use-package dired
-    :ensure nil
-    :commands (dired dired-jump)
-    :bind (("C-x C-j" . dired-jump))
-    :custom ((dired-listing-switches "-agho --group-directories-first"))
-    :config
-    (evil-collection-define-key 'normal 'dired-mode-map
-      "h" 'dired-up-directory
-      "l" 'dired-find-file)
-    (setq vc-follow-symlinks t))
-
-#+end_src
 
 * Terminals
 ** vterm-mode
