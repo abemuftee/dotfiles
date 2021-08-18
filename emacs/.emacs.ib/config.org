@@ -644,7 +644,7 @@
 
             ("j" "Journal Entries")
             ("jj" "Journal" entry
-             (file+olp+datetree "~/dox/org/Jounral.org")
+             (file+olp+datetree "~/dox/org/Journal.org")
              "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
              ;; ,(ib/read-file-as-string "~/Notes/Templates/Daily.org")
              :clock-in :clock-resume
