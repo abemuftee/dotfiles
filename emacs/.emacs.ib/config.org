@@ -571,6 +571,7 @@
             ("@home" . ?H)
             ("@work" . ?W)
             ("@school" . ?S)
+            ("homework" . ?h)
             ("agenda" . ?a)
             ("planning" . ?p)
             ("publish" . ?P)
