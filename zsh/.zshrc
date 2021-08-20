@@ -182,10 +182,6 @@ function deploy {
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-gpg-connect-agent updatestartuptty /bye > /dev/null
-
 # Vterm shell-side configuration
 vterm_printf(){
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
