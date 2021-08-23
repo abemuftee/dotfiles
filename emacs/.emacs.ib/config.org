@@ -380,6 +380,35 @@
 
 #+end_src
 
+** LaTeX
+
+*** AucTex
+
+#+begin_src emacs-lisp
+  (use-package auctex
+    :defer t
+    :config
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
+#+end_src
+
+*** cdlatex
+
+#+begin_src emacs-lisp
+  (use-package cdlatex
+    :config
+    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+    (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
+#+end_src
+
+*** Changing the org-latex-preview scale
+
+#+begin_src emacs-lisp
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
+#+end_src
+
 ** Commenting
 
 #+begin_src emacs-lisp
@@ -764,13 +793,14 @@
 
 #+begin_src emacs-lisp
 
-(with-eval-after-load 'org
-  (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t)
-      (python . t)))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((emacs-lisp . t)
+          (python . t)
+          (latex . t)))
 
-  (push '("conf-unix" . conf-unix) org-src-lang-modes))
+    (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
 #+end_src
 
@@ -784,6 +814,7 @@
 
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("lx" . "src latex"))
   (add-to-list 'org-structure-template-alist '("py" . "src python")))
 
 #+end_src
