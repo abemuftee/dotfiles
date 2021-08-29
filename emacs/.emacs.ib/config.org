@@ -625,6 +625,9 @@
             ("@work" . ?W)
             ("@school" . ?S)
             ("homework" . ?h)
+            ("study" . ?s)
+            ("quiz" . ?q)
+            ("test" . ?t)
             ("agenda" . ?a)
             ("planning" . ?p)
             ("publish" . ?P)
@@ -636,8 +639,16 @@
     (setq org-agenda-custom-commands
           '(("d" "Dashboard"
              ((agenda "" ((org-deadline-warning-days 7)))
-              (todo "NEXT"
-                    ((org-agenda-overriding-header "Next Tasks")))
+              (tags-todo "homework"
+                    ((org-agenda-overriding-header "Homework Assignments")))
+              (tags-todo "study"
+                    ((org-agenda-overriding-header "Studying")))
+              (tags-todo "quiz"
+                    ((org-agenda-overriding-header "Quizzes")))
+              (tags-todo "test"
+                    ((org-agenda-overriding-header "Tests")))
+              (tags-todo "@home"
+                    ((org-agenda-overriding-header "Home Tasks")))
               (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
             ("n" "Next Tasks"
