@@ -326,6 +326,9 @@
     "api" 'password-store-insert
     "apg" 'password-store-generate)
 
+  (setq auth-sources '("~/.authinfo.gpg")
+        auth-source-cache-expiry nil) ; default is 7200 (2h)
+
 #+end_src
 
 * Development
