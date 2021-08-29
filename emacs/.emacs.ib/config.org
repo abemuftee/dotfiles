@@ -890,6 +890,12 @@
 
 #+end_src
 
+** Automatic LaTeX Preview
+
+#+begin_src emacs-lisp
+  (setq org-startup-latex-with-latex-preview t)
+#+end_src
+
 ** Org Roam
 
 #+begin_src emacs-lisp
