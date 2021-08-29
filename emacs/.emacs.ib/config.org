@@ -427,6 +427,12 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
 #+end_src
 
+** Emacs Everywhere
+
+#+begin_src emacs-lisp
+  (use-package emacs-everywhere)
+#+end_src
+
 ** Commenting
 
 #+begin_src emacs-lisp
