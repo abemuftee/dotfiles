@@ -523,7 +523,7 @@
 
   (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime) ;; Automatically sign every email
 
-  (setq mml-secure-openpgp-signers '("0xA31B5819437230ED"));; Use a specific key for signing by referencing its thumbprint.
+  (setq mml-secure-openpgp-signers '("0xF4856510CD052983"));; Use a specific key for signing by referencing its thumbprint.
 
   ;; Add option to open email in browser
   ;; (add-to-list 'mu4e-view-actions
