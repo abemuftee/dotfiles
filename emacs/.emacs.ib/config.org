@@ -329,6 +329,10 @@
   (setq auth-sources '("~/.authinfo.gpg")
         auth-source-cache-expiry nil) ; default is 7200 (2h)
 
+  (require 'epa-file)
+  (epa-file-enable)
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
 #+end_src
 
 * Development
