@@ -11,29 +11,28 @@ export LC_ALL=en_US.UTF-8
 # "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+### OH MY ZSH & POWERLEVEL10K ###
 
-# ### OH MY ZSH & POWERLEVEL10K ###
+# Enable Powerlevel10k instant prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# # Enable Powerlevel10k instant prompt.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+# Path to your oh-my-zsh installation.
+export ZSH="/home/ibrahim/.oh-my-zsh"
 
-# # Path to your oh-my-zsh installation.
-# export ZSH="/home/ibrahim/.oh-my-zsh"
+# Set name of the theme to load
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# # Set name of the theme to load
-# ZSH_THEME="bira"
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
 
-# # Which plugins would you like to load?
-# # Standard plugins can be found in $ZSH/plugins/
-# # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# # Example format: plugins=(rails git textmate ruby lighthouse)
-# # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git)
-
-# # Sourcing oh-my-zsh
-# source $ZSH/oh-my-zsh.sh
+# Sourcing oh-my-zsh
+source $ZSH/oh-my-zsh.sh
 
 ### GLOBAL PATH ###
 
@@ -198,6 +197,6 @@ vterm_printf(){
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
 
-# # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-eval "$(starship init zsh)"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# eval "$(starship init zsh)"
