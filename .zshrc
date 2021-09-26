@@ -22,7 +22,7 @@ fi
 export ZSH="/home/ibrahim/.oh-my-zsh"
 
 # Set name of the theme to load
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="gentoo"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
