@@ -49,9 +49,5 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! elfeed-goodies)
-(package! exwm)
-(package! mixed-pitch)
 (package! org-bullets)
-(package! spell-fu)
 (package! visual-fill-column)

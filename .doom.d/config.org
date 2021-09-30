@@ -1,298 +1,75 @@
-#+TITLE: Doom Emacs Config
+#+TITLE: Doom Emacs Configuration
 #+AUTHOR: Ibrahim Muftee
 
-* Table Of Contents :toc:
-- [[#about-this-config][About This Config]]
-- [[#doom-macros][Doom Macros]]
-- [[#a-few-defaults][A Few Defaults]]
-- [[#fonts][Fonts]]
-- [[#visuals][Visuals]]
-  - [[#theme][Theme]]
-  - [[#line-numbers][Line Numbers]]
-- [[#dired][Dired]]
-  - [[#auto-refresh-dired-on-file-change][Auto refresh dired on file change]]
-- [[#emacs-everywhere][Emacs Everywhere]]
-- [[#elfeed][Elfeed]]
-- [[#emms][Emms]]
-- [[#flycheck][Flycheck]]
-  - [[#disabling-flycheck-in-some-files][Disabling flycheck in some files]]
-- [[#mu4e][Mu4e]]
-- [[#org-mode][Org Mode]]
-- [[#quickrun][Quickrun]]
+* Table of Contents :toc:
+- [[#rudimentary-configuration][Rudimentary Configuration]]
+  - [[#basic-information][Basic Information]]
+  - [[#visuals][Visuals]]
+- [[#packages][Packages]]
+  - [[#org-mode][Org Mode]]
 
-* About This Config
-This was never meant for public use. This is mainly for my use. If you choose to use this, then be sure to change these variables/functions as you see fit.
+* Rudimentary Configuration
 
-* Doom Macros
-Here are some additional functions/macros that could help you configure Doom:
+** Basic Information
 
-- `load!' for loading external *.el files relative to this one
-- `use-package!' for configuring packages
-- `after!' for running code after a package has loaded
-- `add-load-path!' for adding directories to the `load-path', relative to
-  this file. Emacs searches the `load-path' when you load packages with
-  `require' or `use-package'.
-- `map!' for binding new keys
-
-To get information about any of these functions/macros, move the cursor over
-the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-This will open documentation for it, including demos of how they are used.
-
-You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-they are implemented.
-
-* A Few Defaults
-These are just some basic defaults.
+Doom Emacs does useful things with these simple user variables.
 
 #+begin_src emacs-lisp
-
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
 (setq user-full-name "Ibrahim Muftee"
-      user-mail-address "ibrahim@ibrahimmuftee.xyz")
+      user-mail-address "ibrahim@ibrahimmuftee.net")
+#+end_src
 
-(setq auth-sources '("~/.authinfo.gpg")
-      auth-source-cache-expiry nil) ; default is 7200 (2h)
+** Visuals
 
-(setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t                      ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+*** Fonts
 
-(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
-      password-cache-expiry nil                   ; I can trust my computers ... can't I?
-      scroll-margin 2)                            ; It's nice to maintain a little margin
+Doom exposes five (optional) variables for controlling fonts in Doom. Here
+are the three important ones:
 
-(display-time-mode 1)                             ; Enable time in the mode-line
++ `doom-font'
++ `doom-variable-pitch-font'
++ `doom-big-font' -- used for `doom-big-font-mode'; use this for
+  presentations or streaming.
 
-(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
-  (display-battery-mode 1))                       ; it's nice to know how much power you have
-
-(global-subword-mode 1)                           ; Iterate through CamelCase words
-
-;; Better default buffer names
-(setq doom-fallback-buffer-name "► Doom"
-      +doom-dashboard-name "► Doom")
-
-  #+end_src
-
-* Fonts
- Doom exposes five (optional) variables for controlling fonts in Doom. Here
- are the three important ones:
-
- - `doom-font'
- - `doom-variable-pitch-font'
- - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-   presentations or streaming.
-
- They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
- font string. You generally only need these two:
- #+begin_example
- (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-       doom-variable-pitch-font (font-spec :family "sans" :size 13))
- #+end_example
-
- #+begin_src emacs-lisp
-
-(setq doom-font (font-spec :family "Iosevka" :size 13 :weight 'regular)
-      doom-big-font (font-spec :family "Iosevka" :size 24 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13))
-
- #+end_src
-
-* Visuals
-  
-** Theme
- There are two ways to load a theme. Both assume the theme is installed and
- available. You can either set `doom-theme' or manually load a theme with the
- `load-theme' function.
-
- #+begin_src emacs-lisp
-(setq doom-theme 'doom-nord)
- #+end_src
-
-** Line Numbers
-This determines the style of line numbers in effect. If set to `nil', line
-numbers are disabled. For relative line numbers, set this to `relative'.
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+font string. You generally only need these two:
 
 #+begin_src emacs-lisp
+(setq doom-font (font-spec :family "Iosevka" :size 14 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Roboto" :size 14))
+#+end_src
 
+*** Theme
+
+I usually use Nord themes for everything, but I think I prefer doom-one/doom-vibrant for Emacs at least. I'll be sticking with doom-one for now.
+
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-one)
+#+end_src
+
+*** Line Numbers
+
+I like relative line numbers.
+
+#+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
-
 #+end_src
 
-* Dired
+* Packages
 
-** Auto refresh dired on file change
+** Org Mode
 
-#+begin_src emacs-lisp
-(add-hook 'dired-mode-hook 'auto-revert-mode)
-#+end_src
+*** Better Font Faces
 
-* Emacs Everywhere
+These set which kinds of fonts are used for different elements in Org mode.
 
 #+begin_src emacs-lisp
 
-(use-package! emacs-everywhere
-  :if (daemonp)
-  :config
-  (require 'spell-fu)
-  (setq emacs-everywhere-major-mode-function 'org-mode
-        emacs-everywhere-frame-name-format "Edit ∷ %s — %s")
-  (defadvice! emacs-everywhere-raise-frame ()
-    :after 'emacs-everywhere-set-frame-name
-    (setq emacs-everywhere-frame-name (format emacs-everywhere-frame-name-format
-                                (emacs-everywhere-app-class emacs-everywhere-current-app)
-                                (truncate-string-to-width
-                                 (emacs-everywhere-app-title emacs-everywhere-current-app)
-                                 45 nil nil "…")))
-    ;; need to wait till frame refresh happen before really set
-    (run-with-timer 0.1 nil 'emacs-everywhere-raise-frame-1))
-  (defun emacs-everywhere-raise-frame-1 ()
-    (call-process "wmctrl" nil nil nil "-a" emacs-everywhere-frame-name)))
-
-#+end_src
-
-* Elfeed
-An RSS newsfeed reader for Emacs.
-
-#+BEGIN_SRC emacs-lisp
-(use-package! elfeed-goodies)
-(elfeed-goodies/setup)
-(setq elfeed-goodies/entry-pane-size 0.5)
-(add-hook 'elfeed-show-mode-hook 'visual-line-mode)
-(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-(evil-define-key 'normal elfeed-show-mode-map
-  (kbd "J") 'elfeed-goodies/split-show-next
-  (kbd "K") 'elfeed-goodies/split-show-prev)
-(evil-define-key 'normal elfeed-search-mode-map
-  (kbd "J") 'elfeed-goodies/split-show-next
-  (kbd "K") 'elfeed-goodies/split-show-prev)
-#+END_SRC
-
-* Emms
-One of the media players available for Emacs is emms, which stands for Emacs Multimedia System.  By default, Doom Emacs does not use 'SPC a',' so the format I use for these bindings is 'SPC a' plus 'key'.
-
-| COMMAND               | DESCRIPTION                     | KEYBINDING |
-|-----------------------+---------------------------------+------------|
-| emms-playlist-mode-go | /Switch to the playlist buffer/   | SPC a a    |
-| emms-pause            | /Pause the track/                 | SPC a x    |
-| emms-stop             | /Stop the track/                  | SPC a s    |
-| emms-previous         | /Play previous track in playlist/ | SPC a p    |
-| emms-next             | /Play next track in playlist/     | SPC a n    |
-
-#+BEGIN_SRC emacs-lisp
-(emms-all)
-(emms-default-players)
-(emms-mode-line 1)
-(emms-playing-time 1)
-(setq emms-source-file-default-directory "~/music/"
-      emms-playlist-buffer-name "*Music*"
-      emms-info-asynchronously t
-      emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
-(map! :leader
-      (:prefix ("a" . "EMMS audio player")
-       :desc "Go to emms playlist" "a" #'emms-playlist-mode-go
-       :desc "Emms pause track" "x" #'emms-pause
-       :desc "Emms stop track" "s" #'emms-stop
-       :desc "Emms play previous track" "p" #'emms-previous
-       :desc "Emms play next track" "n" #'emms-next))
-#+END_SRC
-
-* Flycheck
-
-** Disabling flycheck in some files
-#+begin_src emacs-lisp
-
-(setq flycheck-disabled-checkers
-      '(c/c++-gcc))
-
-#+end_src
-
-* Mu4e
-
-#+begin_src emacs-lisp
-
-(use-package! mu4e
-  :config
-  (setq mu4e-change-filenames-when-moving t) ;; This is set to 't' to avoid mail syncing issues when using mbsync
-
-  (setq mu4e-update-interval (* 10 60)) ;; Refresh mail using isync every 10 minutes
-  (setq mu4e-get-mail-command "mbsync -a")
-  ;; (setq mu4e-maildir "~/.mail")
-  (setq user-mail-address "ibrahim@ibrahimmuftee.xyz")
-
-  (setq mu4e-contexts
-        (list
-         ;; Personal account
-         (make-mu4e-context
-          :name "Personal"
-          :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/Personal" (mu4e-message-field msg :maildir))))
-          :vars '((user-mail-address . "ibrahim@ibrahimmuftee.xyz")
-                  (user-full-name    . "Ibrahim Muftee")
-                  (smtpmail-smtp-server . "mail.ibrahimmuftee.xyz")
-                  (smtpmail-smtp-service . 587)
-                  (mu4e-drafts-folder  . "/Personal/Drafts")
-                  (mu4e-sent-folder  . "/Personal/Sent")
-                  (mu4e-refile-folder  . "/Personal/Archive")
-                  (mu4e-trash-folder  . "/Personal/Trash")))))
-
-  (setq mu4e-maildir-shortcuts
-      '(("/Personal/Inbox"             . ?i)
-        ("/Personal/Sent"              . ?s)
-        ("/Personal/Trash"             . ?t)
-        ("/Personal/Drafts"            . ?d)
-        ("/Personal/Archive"           . ?a))))
-
-(setq message-send-mail-function 'smtpmail-send-it) ;; Configure the function to use for sending mail
-
-(setq mu4e-compose-format-flowed t) ;; Make sure plain text mails flow correctly for recipients
-
-(setq mu4e-compose-signature ;; My email signature
- (concat
-  "Ibrahim Muftee\n"
-  "http://ibrahimmuftee.xyz"))
-
-(add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime) ;; Automatically sign every email
-
-(setq mml-secure-openpgp-signers '("0xA31B5819437230ED"));; Use a specific key for signing by referencing its thumbprint.
-
-;; Add option to open email in browser
-(add-to-list 'mu4e-view-actions
-  '("View in Browser" . mu4e-action-view-in-browser) t)
-
-(setq browse-url-browser-function 'browse-url-generic)
-(setq browse-url-generic-program "google-chrome-stable")
-
-#+end_src
-
-* Org Mode
-#+begin_src emacs-lisp
-
-(setq org-directory "~/dox/org/")
-
-;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-(defun di/org-mode-setup ()
-  (org-indent-mode)
-  (visual-line-mode 1))
-
-(defun di/org-font-setup ()
+(defun ib/org-font-setup ()
   ;; Replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+  ;; (font-lock-add-keywords 'org-mode
+  ;;                         '(("^ *\\([-]\\) "
+  ;;                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.2)
@@ -303,52 +80,196 @@ One of the media players available for Emacs is emms, which stands for Emacs Mul
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height (cdr face)))
 
-  ;; Ensure that anything that should be doom-font in Org files appears that way
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'doom-font)
-  (set-face-attribute 'org-code nil   :inherit '(shadow doom-font))
-  (set-face-attribute 'org-table nil   :inherit '(shadow doom-font))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow doom-font))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face doom-font))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face doom-font))
-  (set-face-attribute 'org-checkbox nil :inherit 'doom-font))
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
 
-(use-package! org
-  :hook (org-mode . di/org-mode-setup)
-  :config
-  (setq org-ellipsis " ▾")
-  (di/org-font-setup))
+#+end_src
 
-(use-package org-bullets
+*** Basic Configuration
+
+These are some basic configuration options I used in my GNU Emacs config.
+
+#+begin_src emacs-lisp
+
+  (defun ib/org-mode-setup ()
+    (org-indent-mode)
+    ;; (variable-pitch-mode 1)
+    (auto-fill-mode 0)
+    (visual-line-mode 1)
+    (setq evil-auto-indent nil))
+
+  ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
+
+  (use-package org
+    :hook (org-mode . ib/org-mode-setup)
+    :config
+    (setq org-ellipsis " ▾"
+          org-hide-emphasis-markers t)
+
+    (setq org-agenda-start-with-log-mode t)
+    (setq org-log-done 'time)
+    (setq org-log-into-drawer t)
+
+    (setq org-directory "~/Documents/org/")
+    (setq org-agenda-files
+          '("~/Documents/org/Tasks.org"
+            "~/Documents/org/Calendar.org"
+            "~/Documents/org/Habits.org"))
+
+    (require 'org-habit)
+    (add-to-list 'org-modules 'org-habit)
+    (setq org-habit-graph-column 60)
+
+    (setq org-todo-keywords
+          '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+            (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)"))))
+#+end_src
+
+These are some more powerful features of org mode.
+
+#+begin_src emacs-lisp
+    (setq org-refile-targets
+          '(("Archive.org" :maxlevel . 1)
+            ("Tasks.org" :maxlevel . 1)))
+
+    ;; Save Org buffers after refiling!
+    (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+    (setq org-tag-alist
+          '((:startgroup)
+                                          ; Put mutually exclusive tags here
+            (:endgroup)
+            ("@errand" . ?E)
+            ("@home" . ?H)
+            ("@work" . ?W)
+            ("@school" . ?S)
+            ("homework" . ?h)
+            ("study" . ?s)
+            ("quiz" . ?q)
+            ("test" . ?t)
+            ("agenda" . ?a)
+            ("planning" . ?p)
+            ("publish" . ?P)
+            ("batch" . ?b)
+            ("note" . ?n)
+            ("idea" . ?i)))
+
+    ;; Configure custom agenda views
+    (setq org-agenda-custom-commands
+          '(("d" "Dashboard"
+             ((agenda "" ((org-deadline-warning-days 7)))
+              (tags-todo "homework"
+                    ((org-agenda-overriding-header "Homework Assignments")))
+              (tags-todo "study"
+                    ((org-agenda-overriding-header "Studying")))
+              (tags-todo "quiz"
+                    ((org-agenda-overriding-header "Quizzes")))
+              (tags-todo "test"
+                    ((org-agenda-overriding-header "Tests")))
+              (tags-todo "@home"
+                    ((org-agenda-overriding-header "Home Tasks")))
+              (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+
+            ("n" "Next Tasks"
+             ((todo "NEXT"
+                    ((org-agenda-overriding-header "Next Tasks")))))
+
+            ("H" "Home Tasks" tags-todo "@home-meds")
+
+            ("W" "Work Tasks" tags-todo "@work")
+
+            ("S" "School Tasks" tags-todo "@school")
+
+            ;; Low-effort next actions
+            ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+             ((org-agenda-overriding-header "Low Effort Tasks")
+              (org-agenda-max-todos 20)
+              (org-agenda-files org-agenda-files)))
+
+            ("w" "Workflow Status"
+             ((todo "WAIT"
+                    ((org-agenda-overriding-header "Waiting on External")
+                     (org-agenda-files org-agenda-files)))
+              (todo "REVIEW"
+                    ((org-agenda-overriding-header "In Review")
+                     (org-agenda-files org-agenda-files)))
+              (todo "PLAN"
+                    ((org-agenda-overriding-header "In Planning")
+                     (org-agenda-todo-list-sublevels nil)
+                     (org-agenda-files org-agenda-files)))
+              (todo "BACKLOG"
+                    ((org-agenda-overriding-header "Project Backlog")
+                     (org-agenda-todo-list-sublevels nil)
+                     (org-agenda-files org-agenda-files)))
+              (todo "READY"
+                    ((org-agenda-overriding-header "Ready for Work")
+                     (org-agenda-files org-agenda-files)))
+              (todo "ACTIVE"
+                    ((org-agenda-overriding-header "Active Projects")
+                     (org-agenda-files org-agenda-files)))
+              (todo "COMPLETED"
+                    ((org-agenda-overriding-header "Completed Projects")
+                     (org-agenda-files org-agenda-files)))
+              (todo "CANC"
+                    ((org-agenda-overriding-header "Cancelled Projects")
+                     (org-agenda-files org-agenda-files)))))))
+
+    (defun ib/read-file-as-string (path)
+      (with-temp-buffer
+        (insert-file-contents path)
+        (buffer-string)))
+
+    (setq org-capture-templates
+          `(("t" "Tasks / Projects")
+            ("tt" "Task" entry (file+olp "~/Documents/org/Tasks.org" "Inbox")
+             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+            ("ta" "Assignment" entry (file+olp "~/Documents/org/Tasks.org" "Inbox")
+             "* TODO %?\nDEADLINE: %^t\n" :empty-lines 1)
+            ("tq" "Quiz/Test" entry (file+olp "~/Documents/org/Tasks.org" "Inbox")
+             "* TODO %?\nSCHEDULED: %^t\n" :empty-lines 1)
+
+            ("j" "Journal Entries")
+            ("jj" "Journal" entry
+             (file+olp+datetree "~/Documents/org/Journal.org")
+             "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+             ;; ,(ib/read-file-as-string "~/Notes/Templates/Daily.org")
+             :clock-in :clock-resume
+             :empty-lines 1)
+            ("jm" "Meeting" entry
+             (file+olp+datetree "~/Documents/org/Journal.org")
+             "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+             :clock-in :clock-resume
+             :empty-lines 1)
+
+            ("w" "Workflows")
+            ("we" "Checking Email" entry (file+olp+datetree "~/Documents/org/Journal.org")
+             "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+
+            ("m" "Metrics Capture")
+            ("mw" "Weight" table-line (file+headline "~/Documents/org/Metrics.org" "Weight")
+             "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+#+end_src
+
+
+*** Nicer Heading Bullets
+
+#+begin_src emacs-lisp
+(use-package! org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-(defun di/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
-
-(use-package! visual-fill-column
-  :hook (org-mode . di/org-mode-visual-fill))
-
-(use-package! mixed-pitch
-  :hook (org-mode . mixed-pitch-mode)
-  :config
-  (setq mixed-pitch-set-heigth t)
-  (set-face-attribute 'variable-pitch nil :height 1.3))
-
-#+end_src
-* Quickrun
-#+begin_src emacs-lisp
-
-(use-package! quickrun
-  :config
-  (map! :leader
-        :desc "Run current buffer"
-        "q r" #'quickrun))
-
 #+end_src
 
