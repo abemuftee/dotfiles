@@ -54,7 +54,7 @@ alias sre='systemctl restart --user emacs'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Rsync command to update website
-alias webup="rsync -rtvzP ~/code/website/ root@ibrahimmuftee.net:/var/www/ibrahimmuftee"
+alias webup="rsync -rtvzP ~/Repos/website/ ibrahim@ibrahimmuftee.net:/var/www/ibrahimmuftee.net"
 
 # Use neovim for vim if present.
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
