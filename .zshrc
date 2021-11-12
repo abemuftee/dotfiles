@@ -37,7 +37,7 @@ source $ZSH/oh-my-zsh.sh
 ### GLOBAL PATH ###
 
 # Add Doom Emacs bin to $PATH
-export PATH="$PATH:/home/ibrahim/.emacs.doom/bin"
+export PATH="$PATH:/home/ibrahim/.emacs.d/bin"
 
 # Add ~/.local/bin to $PATH
 export PATH="$PATH:/home/ibrahim/.local/bin"
