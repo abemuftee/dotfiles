@@ -72,6 +72,7 @@ alias sdn="sudo shutdown -h now"
 alias e="$EDITOR"
 alias v="$EDITOR"
 alias p="sudo pacman"
+alias s="sudo systemctl"
 alias z="zathura"
 alias archive="sudo mount -t cifs //192.168.1.125/archive /archive/ -o username=family"
 
