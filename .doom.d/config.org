@@ -3,12 +3,21 @@
 
 * Table of Contents :toc:
 - [[#rudimentary-configuration][Rudimentary Configuration]]
+  - [[#max-lisp-eval-depth-fix][Max Lisp Eval Depth fix]]
   - [[#basic-information][Basic Information]]
   - [[#visuals][Visuals]]
 - [[#packages][Packages]]
   - [[#org-mode][Org Mode]]
 
 * Rudimentary Configuration
+
+** Max Lisp Eval Depth fix
+
+I can't SPC . when I install Doom Emacs fresh, so this fixes this issue.
+
+#+begin_src emacs-lisp
+(setq max-lisp-eval-depth 10000)
+#+end_src
 
 ** Basic Information
 
