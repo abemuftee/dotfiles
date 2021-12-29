@@ -60,7 +60,7 @@ alias webup="rsync -rtvzP ~/Repos/website/ ibrahim@ibrahimmuftee.net:/var/www/ib
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 # Verbosity and settings that you pretty much just always are going to want.
-alias yt="youtube-dl --add-metadata -i"      # youtube-dl download normal video
+alias yt="yt-dlp --add-metadata -i"      # youtube-dl download normal video
 alias yta="yt -x -f bestaudio/best"          # youtube-dl download audio file of video
 alias ducks='du -cks * | sort -rn | head'    # Size in bytes of files and directories
 alias mutt='neomutt'
