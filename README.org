@@ -7,7 +7,7 @@ Uses GNU Stow - https://www.gnu.org/software/stow/
 
 #+begin_src shell
   cd ~
-  git clone https://github.com/ibrahimmuftee/dotfiles.git ~/.dotfiles/
+  git clone https://github.com/abemuftee/dotfiles.git ~/.dotfiles/
   cd .dotfiles
   stow .
 #+end_src
