@@ -282,7 +282,7 @@ These are some more powerful features of org mode.
     :init
     (setq org-roam-v2-ack t)
     :custom
-    (org-roam-directory "~/Documents/org-roam")
+    (org-roam-directory "~/Documents/org-roam/")
     (org-roam-completion-everywhere t)
     (org-roam-capture-templates
      '(("d" "default" plain
