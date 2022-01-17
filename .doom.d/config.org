@@ -1,23 +1,17 @@
+
 #+TITLE: Doom Emacs Configuration
 #+AUTHOR: Ibrahim Muftee
 
 * Table of Contents :toc:
 - [[#rudimentary-configuration][Rudimentary Configuration]]
-  - [[#max-lisp-eval-depth-fix][Max Lisp Eval Depth fix]]
   - [[#basic-information][Basic Information]]
   - [[#visuals][Visuals]]
 - [[#packages][Packages]]
   - [[#org-mode][Org Mode]]
+  - [[#org-roam][Org Roam]]
+  - [[#projectile][Projectile]]
 
 * Rudimentary Configuration
-
-** Max Lisp Eval Depth fix
-
-I can't SPC . when I install Doom Emacs fresh, so this fixes this issue.
-
-#+begin_src emacs-lisp
-(setq max-lisp-eval-depth 10000)
-#+end_src
 
 ** Basic Information
 
@@ -271,7 +265,6 @@ These are some more powerful features of org mode.
              "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 #+end_src
 
-
 *** Nicer Heading Bullets
 
 #+begin_src emacs-lisp
@@ -282,3 +275,51 @@ These are some more powerful features of org mode.
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 #+end_src
 
+** Org Roam
+
+#+begin_src emacs-lisp
+  (use-package! org-roam
+    :init
+    (setq org-roam-v2-ack t)
+    :custom
+    (org-roam-directory "~/Documents/org-roam")
+    (org-roam-completion-everywhere t)
+    (org-roam-capture-templates
+     '(("d" "default" plain
+        "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)
+       ("m" "math notes" plain
+        "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+STARTUP: latexpreview\n")
+        :unnarrowed t)
+       ("l" "programming language" plain
+        "* Characteristics\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)
+       ("b" "book notes" plain
+        (file "~/Documents/org-roam/Templates/BookNoteTemplate.org")
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)
+       ("p" "project" plain
+        "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+        :unnarrowed t)
+       )
+     )
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n i" . org-roam-node-insert)
+           :map org-mode-map
+           ("C-M-i" . completion-at-point))
+    :config
+    (org-roam-setup))
+#+end_src
+
+** Projectile
+
+I have projects all over the place. I need Projectile to find all of them
+
+#+begin_src emacs-lisp
+(setq projectile-project-search-path '("~/Code/" "~/Repos/" ))
+#+end_src
