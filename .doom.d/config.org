@@ -1,4 +1,3 @@
-
 #+TITLE: Doom Emacs Configuration
 #+AUTHOR: Ibrahim Muftee
 
@@ -56,6 +55,14 @@ I like relative line numbers.
 
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
+#+end_src
+
+*** Frame Opacity
+
+My terminal has some frame transparency, so I like to put one here.
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(alpha . 85))
 #+end_src
 
 * Packages
