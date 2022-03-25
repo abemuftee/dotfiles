@@ -141,4 +141,4 @@ super + {Left,Down,Up,Right}
 
 # betterlockscreen
 super + BackSpace
-	  betterlockscreen -l blur
+	  betterlockscreen -l
