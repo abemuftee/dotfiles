@@ -1,0 +1,8 @@
+[user]
+	name = Ibrahim Muftee
+	email = ibrahim@ibrahimmuftee.net
+	signingkey = 294F2C89B3DE9B537A8204A8F4856510CD052983
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
