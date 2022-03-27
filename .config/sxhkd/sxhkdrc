@@ -151,3 +151,10 @@ XF86AudioLowerVolume
     	pactl set-sink-volume 0 -5%
 XF86AudioMute
     	pactl set-sink-mute 0 toggle
+
+# Brighness Keys
+
+XF86MonBrightnessUp
+	brightnessctl set 50+
+XF86MonBrightnessDown
+	brightnessctl set 50-
