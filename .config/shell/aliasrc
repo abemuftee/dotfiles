@@ -20,6 +20,7 @@ alias \
 	mkd="mkdir -pv" \
 	yt="youtube-dl --add-metadata -i" \
 	yta="yt -x -f bestaudio/best" \
+	ssh='TERM=xterm-256color ssh' \
 	ffmpeg="ffmpeg -hide_banner"
 
 # Colorize commands when possible.
