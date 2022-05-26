@@ -1,0 +1,6 @@
+#!/bin/sh
+output=$(basename $1 .dv).mkv
+#ffmpeg -i $1 -acodec aac -ab 128k -vcodec libx264 -crf 21 -vf yadif=1,scale=960:720 $output
+ffmpeg -vaapi_device /dev/dri/renderD128 -i $1 -vf 'yadif=1,hwupload,scale_vaapi=w=960:h=720:format=nv12' -c:v h264_vaapi -b:v 6M -maxrate 6M -acodec aac -ab 128k $output
+
+#dvgrab -f raw -size 0 -showstatus
